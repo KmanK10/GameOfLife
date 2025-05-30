@@ -10,13 +10,25 @@ public class LifeMain {
         );
 
         Scanner input = new Scanner(System.in);
-        //LifeModel model = new LifeModel(input.nextLine());
-        LifeModel model = new LifeModel("glider.txt");
+        LifeModel model = new LifeModel(input.nextLine());
 
-        input.close();
+        System.out.print(model.toString());
 
-        System.out.print("\n" + model.toString());
+        // Keep asking the user for new actions
+        while (true) {
+            System.out.print("a)nimate, t)ick, q)uit? ");
+            String command = input.nextLine().toLowerCase();
+
+            if (command.equals("t")) { // Tick one update
+                model.update();
+                System.out.print(model.toString());
+            } else if (command.equals("a")) { // Start the animation GUI
+                new LifeGUI(model);
+            } else if (command.equals("q")) { // Quit the program
+                System.out.println("Bye");
+                input.close();
+                return;
+            }
+        }
     }
-
-    
 }
